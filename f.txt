@@ -1,0 +1,12 @@
+ El volumen de la unidad D es Nuevo vol
+ El n£mero de serie del volumen es: 4A4A-B6BB
+
+ Directorio de D:\git\wumpus
+
+04/12/2016  18:32    <DIR>          .
+04/12/2016  18:32    <DIR>          ..
+04/12/2016  18:32                 0 f.txt
+04/12/2016  18:31               666 README.md
+04/12/2016  18:31           170.459 WumpusTest.pdf
+               3 archivos        171.125 bytes
+               2 dirs  304.941.936.640 bytes libres
