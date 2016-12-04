@@ -74,7 +74,7 @@ public class ElementFactory {
 			return null;
 	}
 	
-	static public Environment crearEfectoAmbiental(int type){
+	static public Environment createEnviroment(int type){
 		return new Environment(type);
 	}
 }

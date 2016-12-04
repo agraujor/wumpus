@@ -81,16 +81,16 @@ public class Board {
 			type = Environment.STINK;
 		
 		if (x>0){
-			board[x-1][y].add(ElementFactory.crearEfectoAmbiental(type));
+			board[x-1][y].add(ElementFactory.createEnviroment(type));
 		}
 		if (x<board.length-1){
-			board[x+1][y].add(ElementFactory.crearEfectoAmbiental(type));
+			board[x+1][y].add(ElementFactory.createEnviroment(type));
 		}
 		if (y>0){
-			board[x][y-1].add(ElementFactory.crearEfectoAmbiental(type));
+			board[x][y-1].add(ElementFactory.createEnviroment(type));
 		}
 		if (y<board.length-1){
-			board[x][y+1].add(ElementFactory.crearEfectoAmbiental(type));
+			board[x][y+1].add(ElementFactory.createEnviroment(type));
 		}
 	}
 	public void turn(int turn){
