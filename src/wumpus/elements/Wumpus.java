@@ -11,6 +11,7 @@ public class Wumpus extends Element{
 		this.position = position;
 		alive= true;
 	}
+	//KILLS WUMPUS AND CHANGES ALIVE AND DESCRIPTION
 	public void kill(){
 		if (alive){
 			alive = false;

@@ -36,6 +36,7 @@ public class Position {
 		this.direction = NOT_ORIENTED;
 	}
 	
+	//SET DIRECTION IN FUNCTION OF LEFT OF RIGHT(NOTICE CLOCKWISE WHEN CHANGING DIRECTION (-- OR ++))
 	public void turn(int side){
 		if (direction !=NOT_ORIENTED){
 			if (side == RIGHT){
@@ -51,6 +52,7 @@ public class Position {
 			}
 		}
 	}
+	//WALKS-> CHANGE POSITION IF IT'S POSIBLE RETURNING TRUE OR FALSE
 	public boolean go(int max){
 		boolean posible=false;
 		
@@ -64,6 +66,8 @@ public class Position {
 		}	
 		return posible;
 	}
+	
+	//CHECKS IF SHOT CAN KILL OBJECTIVE
 	public boolean checkShoot(Position objective){
 		System.out.println("Shooting towards "+Position.cardinalPoints[direction]);
 		switch(this.direction){

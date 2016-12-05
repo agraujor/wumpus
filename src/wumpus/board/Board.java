@@ -16,12 +16,12 @@ public class Board {
 		
 	public Board(int n, int nPits, int nArrows) throws Exception{
 		
-		if(n==1)
-			throw new Exception("Creating world: world too small.");
+		if(n<=1)													
+			throw new Exception("Creating world: world too small.");	//EXCEPTION IS THROWN WHEN TRYING TO CREATE AN SMALL WORLD 
 		if(n*n-2 <= nPits)
-			throw new Exception("Creating world: too many pits.");
+			throw new Exception("Creating world: too many pits.");      //EXCEPTION IS THROWN WHEN TRYING TO PUT TOO MANY PITS>>>>> SPACE IS NEEDED TO ADD OTHER ELEMENTS 
 		if (nArrows<0)
-			throw new Exception("Creating world: player can't have negative number of arrows.");
+			throw new Exception("Creating world: player can't have negative number of arrows."); //NO COMMENTS
 		
 		//INICIALIZAMOS board	
 		board = new Section[n][n];
@@ -76,6 +76,7 @@ public class Board {
 	public Player getPlayer(){
 		return pj;
 	}
+	//THIS METHOD IS USED TO PLACE PITS OR WUMPUS AND ITS SMELL/BREEZE
 	public void putElementWithEffect(int x, int y, Element element){
 
 		board[x][y].add(element);
@@ -110,20 +111,24 @@ public class Board {
 	public void ponerPj(int x,int y){
 		board[x][y].add(pj);
 	}	
+	
+	
 	public String describeSection(){
 		Position pos = pj.getPosition();
 		String s = board[pos.getX()][pos.getY()].toString();
 		if (board[pos.getX()][pos.getY()].getGoldIfPosible())
 			pj.setCarriesGold(true);
-		
 		return s;
 	}
+	
 	public int getN(){
 		return board.length;
 	}
+	
 	public void shoot(){
 		pj.shoot();
 	}
+	
 	public boolean tryToExit(){
 		Position pos = pj.getPosition();
 		boolean exitIsHere = board[pos.getX()][pos.getY()].exitIsHere();

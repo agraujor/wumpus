@@ -35,6 +35,8 @@ public class Player extends Element{
 	public void turn(int turn){
 		this.position.turn(turn);
 	}
+	
+	//MOVES AND KILLS PLAYER IF WUMPUS/PIT IS THERE
 	public void go(){
 		
 		if(position.go(b.getN())){
@@ -52,9 +54,10 @@ public class Player extends Element{
 			}
 		}
 		else
-			System.out.println("Ooops, there is a wall in your way.");
+			System.out.println("Ooops, there is a wall on your way.");
 	}
 
+	//SHOT AND KILLS WUMPUS IF IT'S POSIBLE
 	public void shoot(){
 		if(numberOfArrows>0){
 			numberOfArrows--;
