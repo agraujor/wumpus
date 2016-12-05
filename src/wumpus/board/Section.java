@@ -28,10 +28,21 @@ public class Section {
 		return occupiedBy.isEmpty();
 	}
 	
-	public boolean posiblePonerPozo(){
+	public boolean posiblePutPit(){
 		boolean posible = true;
 		for(Element e:occupiedBy){
-			if ((e instanceof Exit)||(e instanceof Wumpus)||(e instanceof Player)||(e instanceof Pit)||(e instanceof Gold)){
+			if ((e instanceof Exit)||(e instanceof Wumpus)||(e instanceof Pit)||(e instanceof Gold)){
+				posible = false;
+				break;
+			}
+		}
+		return posible;
+	}
+	
+	public boolean posiblePutWumpus(){
+		boolean posible = true;
+		for(Element e:occupiedBy){
+			if ((e instanceof Exit)||(e instanceof Pit)||(e instanceof Gold)){
 				posible = false;
 				break;
 			}
@@ -43,6 +54,7 @@ public class Section {
 		for(Element e:occupiedBy){
 			if (e instanceof Gold){
 				posible = true;
+				occupiedBy.remove(e);
 				break;
 			}
 		}
@@ -56,6 +68,14 @@ public class Section {
 		}
 		return null;
 	}
+	public boolean exitIsHere(){
+		for(Element e:occupiedBy)
+			if (e instanceof Exit)
+				return true;
+			
+		return false;
+	}
+	
 	
 	@Override
 	public String toString(){

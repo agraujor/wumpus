@@ -1,0 +1,14 @@
+Game Instructions
+
+Commands:
+"l" or "L" : Player will turn left.
+"r" or "R" : Player will turn right.
+"g" or "G" : Player will walk.
+"s" or "S" : Player will shoot an arrow which could kill Wumpus.
+"e" or "E" : Player will try to exit if it is on the Exit.
+"q" or "Q" : Quit the game.
+
+Player starts at sector [0,n-1] toward EAST.
+Game Parameters can be changed by re-assign constants in main.
+
+Good luck!

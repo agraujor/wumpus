@@ -11,7 +11,7 @@ public class Wumpus extends Element{
 		this.position = position;
 		alive= true;
 	}
-	public void matar(){
+	public void kill(){
 		if (alive){
 			alive = false;
 			System.out.println("A scream is heard in the distance: ROAAARRRRRRRRRRR.");
@@ -27,12 +27,8 @@ public class Wumpus extends Element{
 		this.position = position;
 	}
 
-	private boolean estaVivo(){
+	public boolean isAlive(){
 		return alive;				
 	}
 	
-	@Override
-	public String toString(){
-		return getDescription();
-	}
 }

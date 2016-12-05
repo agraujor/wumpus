@@ -11,18 +11,17 @@ public class ElementFactory {
 	private static int		pitsCreated 	= 0;
 	private static int		posiblePits		= 0;
 	private static boolean  pitsLocked  	= false;
-
-
+	
 	static public Pit createPit(){					//IT IS ONLY POSIBLE TO CREATE A FIXED NUMBER OF PITS
 		
-		if (pitsCreated<posiblePits){
+		if (pitsCreated < posiblePits){
 			pitsCreated++;
 			return new Pit();}
 		else
 			return null;
 	}
 
-	static public void setPozosPosibles(int nPits){      //IT IS ONLY POSIBLE TO SET PITS ONCE (AFTER THAT IS LOCKED)
+	static public void setPosiblePits(int nPits){      //IT IS ONLY POSIBLE TO SET PITS ONCE (AFTER THAT IS LOCKED)
 		if (!pitsLocked){
 			posiblePits = nPits;
 			pitsLocked  = true;
@@ -68,8 +67,10 @@ public class ElementFactory {
 			return null;
 	}
 	static public Exit createExit(){	//ONLY ONE EXIT IS ALLOWED
-		if (!exitCreated)
+		if (!exitCreated){
+			exitCreated = true;
 			return new Exit();
+		}
 		else
 			return null;
 	}

@@ -16,48 +16,51 @@ public class Board {
 		
 	public Board(int n, int nPits, int nArrows) throws Exception{
 		
-		if(n*n-1 > nPits){ 			
-			//INICIALIZAMOS board	
-			board = new Section[n][n];
-			for(int i =0;i<n;i++)			
-				for(int j=0;j<n;j++)
-					board[i][j] = new Section();
-			//CREAMOS SALIDA
-			board[0][n-1].add(ElementFactory.createExit());
-			//CREAMOS PJ
-			pj = ElementFactory.createPlayer(new Position(0,n-1),nArrows);
-			pj.setBoard(this);		
-
-			//CREAMOS ORO
-			while(!ElementFactory.isGoldCreated()){
-				int x = (int) (Math.random() * n);
-				int y = (int) (Math.random() * n);
-				if ((x!=0)&&(y!=n-1)){
-					board[x][y].add(ElementFactory.createGold());
-				}
-			}
-			//CREAMOS WUMPUS
-			boolean wumpusCreado = false;
-			while(!ElementFactory.isWumpusCreated()){
-				int x = (int) (Math.random() * n);
-				int y = (int) (Math.random() * n);
-				if ((x!=0)&&(y!=n-1)){
-					wumpus = ElementFactory.createWumpus(new Position(x,y));
-					putElementWithEffect(x,y,wumpus);		
-				}
-			}
-			//PONEMOS POZOS
-			ElementFactory.setPozosPosibles(nPits);
-			while(ElementFactory.getPitsLeft()>0){				
-				int x = (int) (Math.random() * n);
-				int y = (int) (Math.random() * n);
-				if (board[x][y].posiblePonerPozo())
-					putElementWithEffect(x,y,ElementFactory.createPit());		
+		if(n==1)
+			throw new Exception("Creating world: world too small.");
+		if(n*n-2 <= nPits)
+			throw new Exception("Creating world: too many pits.");
+		if (nArrows<0)
+			throw new Exception("Creating world: player can't have negative number of arrows.");
+		
+		//INICIALIZAMOS board	
+		board = new Section[n][n];
+		for(int i =0;i<n;i++)			
+			for(int j=0;j<n;j++)
+				board[i][j] = new Section();
+		//CREAMOS SALIDA
+		board[0][n-1].add(ElementFactory.createExit());
+		//CREAMOS PJ
+		pj = ElementFactory.createPlayer(new Position(0,n-1,Position.EAST),nArrows);
+		pj.setBoard(this);		
+		//CREAMOS ORO
+		while(!ElementFactory.isGoldCreated()){
+			int x = (int) (Math.random() * n);
+			int y = (int) (Math.random() * n);
+			if ((x!=0)&&(y!=n-1)){
+				board[x][y].add(ElementFactory.createGold());
 			}
 		}
-		else{
-			throw new Exception();
+		//CREAMOS WUMPUS
+		boolean wumpusCreado = false;
+		while(!ElementFactory.isWumpusCreated()){
+			int x = (int) (Math.random() * n);
+			int y = (int) (Math.random() * n);
+			if (board[x][y].posiblePutWumpus()){
+				wumpus = ElementFactory.createWumpus(new Position(x,y));
+				putElementWithEffect(x,y,wumpus);		
+			}
 		}
+		//PONEMOS POZOS
+		ElementFactory.setPosiblePits(nPits);
+		while(ElementFactory.getPitsLeft()>0){				
+			int x = (int) (Math.random() * n);
+			int y = (int) (Math.random() * n);
+			if (board[x][y].posiblePutPit())
+				putElementWithEffect(x,y,ElementFactory.createPit());		
+		}
+		
+	
 	}
 	public Section getSection(Position position){
 		return board[position.getX()][position.getY()];
@@ -70,7 +73,9 @@ public class Board {
 	public Wumpus getWumpus(){
 		return wumpus;
 	}
-	
+	public Player getPlayer(){
+		return pj;
+	}
 	public void putElementWithEffect(int x, int y, Element element){
 
 		board[x][y].add(element);
@@ -105,19 +110,26 @@ public class Board {
 	public void ponerPj(int x,int y){
 		board[x][y].add(pj);
 	}	
-	public String descripcionCasilla(){
+	public String describeSection(){
 		Position pos = pj.getPosition();
 		String s = board[pos.getX()][pos.getY()].toString();
-		if (board[pos.getX()][pos.getY()].getGoldIfPosible()){
-			board[pos.getX()][pos.getY()].remove(new Gold());
+		if (board[pos.getX()][pos.getY()].getGoldIfPosible())
 			pj.setCarriesGold(true);
-		}
+		
 		return s;
 	}
 	public int getN(){
 		return board.length;
 	}
-	public void disparar(){
+	public void shoot(){
 		pj.shoot();
+	}
+	public boolean tryToExit(){
+		Position pos = pj.getPosition();
+		boolean exitIsHere = board[pos.getX()][pos.getY()].exitIsHere();
+		return exitIsHere;
+	}
+	public boolean pjHasGold(){
+		return pj.carriesGold();
 	}
 }

@@ -19,8 +19,4 @@ public class Environment extends Element{
 
 	}
 	
-	@Override
-	public String toString(){
-		return this.getDescription();
-	}
 }
